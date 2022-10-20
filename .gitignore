@@ -34,3 +34,5 @@ npm-debug.log
 
 
 .DS_Store
+
+.vscode/
