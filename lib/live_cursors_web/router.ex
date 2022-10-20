@@ -18,6 +18,7 @@ defmodule LiveCursorsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    live "/cursors", Cursors
   end
 
   # Other scopes may use custom stacks.
