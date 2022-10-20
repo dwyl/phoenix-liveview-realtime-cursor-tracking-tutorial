@@ -1,13 +1,18 @@
 defmodule LiveCursorsWeb.Cursors do
   use LiveCursorsWeb, :live_view
 
-  def mount(_params, _session, socket) do
+  def mount(_params, %{"user" => user}, socket) do
     updated =
       socket
       |> assign(:mouse_x, 50)
       |> assign(:mouse_y, 50)
+      |> assign(:user, user)
 
     {:ok, updated}
+  end
+
+  def mount(_params, _session, socket) do
+    {:ok, socket |> redirect(to: "/") }
   end
 
   def handle_event("cursor-move", %{"mouse_x" => mouse_x, "mouse_y" => mouse_y}, socket) do
@@ -32,6 +37,7 @@ defmodule LiveCursorsWeb.Cursors do
               </linearGradient>
             </defs>
           </svg>
+          <span style={"background-color: deeppink;"} class="mt-1 ml-4 px-1 text-sm text-white"><%= @user %></span>
         </li>
       </ul>
     """
