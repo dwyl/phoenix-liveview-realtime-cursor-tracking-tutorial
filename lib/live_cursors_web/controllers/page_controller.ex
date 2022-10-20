@@ -11,7 +11,7 @@ defmodule LiveCursorsWeb.PageController do
 
       _ ->
         conn
-        |> put_session(:user, MnemonicSlugs.generate_slug())
+        |> put_session(:user, MnemonicSlugs.generate_slug)
         |> configure_session(renew: true)
         |> redirect(to: "/cursors")
     end
