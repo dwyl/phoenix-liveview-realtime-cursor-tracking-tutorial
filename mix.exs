@@ -37,6 +37,7 @@ defmodule LiveCursors.MixProject do
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
+      {:tailwind, "~> 0.1.9", runtime: Mix.env() == :dev},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.6"},
       {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
@@ -58,7 +59,7 @@ defmodule LiveCursors.MixProject do
   defp aliases do
     [
       setup: ["deps.get"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["esbuild default --minify", "tailwind default --minify", "phx.digest"]
     ]
   end
 end

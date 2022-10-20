@@ -16,6 +16,7 @@ config :live_cursors, LiveCursorsWeb.Endpoint,
   secret_key_base: "+ygUFnI/BEb3N4JJBNIurSlZ3tVZJdnKHsqZVedjMTr2j/I6gVrFNmSVFFErV9qp",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
