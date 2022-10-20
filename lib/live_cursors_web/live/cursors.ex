@@ -1,15 +1,17 @@
 defmodule LiveCursorsWeb.Cursors do
   alias LiveCursorsWeb.Presence
   use LiveCursorsWeb, :live_view
+  require Logger
 
   @channel_topic "cursor_page"
 
-  def mount(_params, %{"user" => user}, socket) do
+  def mount(_params, %{"user" => user, "color" => color}, socket) do
     Presence.track(self(), @channel_topic, socket.id, %{
       socket_id: socket.id,
       x: 50,
       y: 50,
-      name: user
+      name: user,
+      color: color
     })
 
     LiveCursorsWeb.Endpoint.subscribe(@channel_topic)
@@ -17,6 +19,9 @@ defmodule LiveCursorsWeb.Cursors do
     initial_users =
       Presence.list(@channel_topic)
       |> Enum.map(fn {_, data} -> data[:metas] |> List.first() end)
+
+    Logger.debug "Var value: #{inspect(initial_users)}"
+
 
     updated =
       socket
