@@ -5,12 +5,16 @@ defmodule LiveCursorsWeb.Cursors do
 
   @channel_topic "cursor_page"
 
-  def mount(_params, %{"user" => user, "color" => color}, socket) do
+  def mount(_params, _session, socket) do
+
+    username = MnemonicSlugs.generate_slug
+    color = RandomColor.hex()
+
     Presence.track(self(), @channel_topic, socket.id, %{
       socket_id: socket.id,
       x: 50,
       y: 50,
-      name: user,
+      username: username,
       color: color
     })
 
@@ -25,15 +29,11 @@ defmodule LiveCursorsWeb.Cursors do
 
     updated =
       socket
-      |> assign(:user, user)
+      |> assign(:username, username)
       |> assign(:users, initial_users)
       |> assign(:socket_id, socket.id)
 
     {:ok, updated}
-  end
-
-  def mount(_params, _session, socket) do
-    {:ok, socket |> redirect(to: "/") }
   end
 
   def handle_event("cursor-move", %{"mouse_x" => x, "mouse_y" => y}, socket) do
