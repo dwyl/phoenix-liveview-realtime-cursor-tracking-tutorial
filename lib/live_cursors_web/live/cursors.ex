@@ -1,7 +1,6 @@
 defmodule LiveCursorsWeb.Cursors do
   alias LiveCursorsWeb.Presence
   use LiveCursorsWeb, :live_view
-  require Logger
 
   @channel_topic "cursor_page"
 
@@ -23,9 +22,6 @@ defmodule LiveCursorsWeb.Cursors do
     initial_users =
       Presence.list(@channel_topic)
       |> Enum.map(fn {_, data} -> data[:metas] |> List.first() end)
-
-    Logger.debug "Var value: #{inspect(initial_users)}"
-
 
     updated =
       socket
