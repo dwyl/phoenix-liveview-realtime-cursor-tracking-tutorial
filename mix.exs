@@ -10,7 +10,12 @@ defmodule LiveCursors.MixProject do
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+
+      # Testing
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test,
+        "coveralls.post": :test, "coveralls.html": :test]
     ]
   end
 
@@ -48,7 +53,11 @@ defmodule LiveCursors.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:mnemonic_slugs, "~> 0.0.3"},
-      {:random_color, "~> 0.1.0"}
+      {:random_color, "~> 0.1.0"},
+
+      # Testing
+      {:excoveralls, "~> 0.15.0", only: [:test, :dev]},
+      {:mock, "~> 0.3.0", only: :test}
     ]
   end
 
