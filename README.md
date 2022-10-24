@@ -21,7 +21,7 @@ what the others are doing.
 
 This tutorial creates a stylized simple landing page
 showing the cursor of everyone that is connected
-to it. It should take you no less than 30 minutes
+to it. It should take you no more than 20 minutes
 to get up and running!
 
 # Who? 👤
@@ -35,7 +35,7 @@ If you are completely new to Phoenix and LiveView,
 we recommend you follow the **LiveView _Counter_ Tutorial**:
 https://github.com/dwyl/phoenix-liveview-counter-tutorial
 
-### Prerequisites  - this is what you need before you start
+### Prerequisites 
 This tutorial requires you have `Elixir` and `Phoenix` installed.
 If you you don't, please see [how to install Elixir](https://github.com/dwyl/learn-elixir#installation)
 and [Phoenix](https://hexdocs.pm/phoenix/installation.html#phoenix).
@@ -79,7 +79,8 @@ Now you can visit
 [`localhost:4000`](http://localhost:4000)
 in your web browser.
 
-> 💡 Open a _second_ browser window (**in incognito mode**, if you want to),
+> 💡 Open a _second_ browser window or tab
+>  (**in incognito mode**, if you want to),
 > and you will see the a new cursor with a new name!
 
 ## 1. Create the App 🆕
@@ -111,13 +112,13 @@ If this is the first time using TailwindCSS, you
 can check [our tutorial](https://github.com/dwyl/learn-tailwind)
 for a primer. 
 
-The reason we are using TailwindCSS is is to showcase you
+The reason we are using TailwindCSS is to showcase you
 how to also integrate a *mature* styling library and
 get it running with Phoenix so you can create your 
 own awesome and beautiful web pages :smile:.
 
 #### Installing TailwindCSS
-Let's first add the TailwindCSS depedency to our project,
+Let's first add the TailwindCSS dependency to our project,
 by opening the `mix.exs` file and adding
 the following line to the `deps` section:
 
@@ -217,7 +218,7 @@ mix phx.server
 If you visit [`localhost:4000`](http://localhost:4000), you'll
 see the following in your browser.
 
-<img width="1379" alt="Screenshot 2022-10-24 at 09 11 25" src="https://user-images.githubusercontent.com/17494745/197478954-a4ce8e52-8a14-45c5-b80a-883639c5f1f6.png">
+<img width="1379" alt="phoenix_with_tailwind" src="https://user-images.githubusercontent.com/17494745/197478954-a4ce8e52-8a14-45c5-b80a-883639c5f1f6.png">
 
 > Don't worry if this looks ugly. It's because
 we now use TailwindCSS. We're going to make it
@@ -307,7 +308,7 @@ and render the content on our `cursors.html.heex` file.
 You should now see a cursor 
 at the middle of the page.
 
-<img width="1379" alt="Screenshot 2022-10-24 at 10 01 24" src="https://user-images.githubusercontent.com/17494745/197489203-ce81beea-d30a-4aa2-948d-cb63635cae19.png">
+<img width="1379" alt="simple_cursor_middle" src="https://user-images.githubusercontent.com/17494745/197489203-ce81beea-d30a-4aa2-948d-cb63635cae19.png">
 
 
 > You can change your `svg` object to anything you like. 
@@ -321,8 +322,8 @@ and send it over to the Phoenix server
 we are building. 
 
 We understand that the idea of LiveView 
-is to as much work on the server as possible, 
-but in this specific scenario that is not possible.
+is to do as much work on the server as possible, 
+but in this specific scenario, that is not possible.
 
 Phoenix offers 
 [options for client/server interoperability](https://hexdocs.pm/phoenix_live_view/js-interop.html), 
@@ -393,7 +394,7 @@ can properly identify it.
 If you restart the server and open the browser again,
 the cursor should follow your mouse movements.
 
-<img width="1379" alt="Screenshot 2022-10-24 at 11 02 16" src="https://user-images.githubusercontent.com/17494745/197502086-f3a0ff05-5604-41ce-ad4f-3a72b05d8414.png">
+<img width="1379" alt="cursor_tracking" src="https://user-images.githubusercontent.com/17494745/197502086-f3a0ff05-5604-41ce-ad4f-3a72b05d8414.png">
 
 
 ## 3. Adding users
@@ -474,7 +475,7 @@ If you restart the server and open the browser,
 you will see the cursor and a random username
 moving along with it.
 
-<img width="1379" alt="Screenshot 2022-10-24 at 11 28 02" src="https://user-images.githubusercontent.com/17494745/197506546-2208c9ee-6f36-4625-b49b-126eef60d629.png">
+<img width="1379" alt="cursor_with_username" src="https://user-images.githubusercontent.com/17494745/197506546-2208c9ee-6f36-4625-b49b-126eef60d629.png">
 
 ### 3b. Tracking who is online
 This is the most exciting part of the tutorial. 
@@ -521,7 +522,7 @@ the `cursors.ex` file. First, let's add
 after declaring the module so it's easier
 to write our code.
 
-In the mount function, we will initialize Presence
+In the `mount/3` function, we will initialize Presence
 for the channel through the `Presence.track/4` function. 
 We will define a constant `@channel_topic`
 and use it in the function as well. Change the
@@ -575,7 +576,7 @@ where we use the data from Presence and obtain the list of
 connected users and their respective metadata. 
 At last, we assign the `user` data 
 and the `initial_users` 
-and `socket.it` data to the socket assigns, 
+and `socket.id` data to the socket assigns, 
 so we can access this information 
 in the `cursors.html.heex` file.
 
@@ -628,7 +629,7 @@ Change the `handle_event/1` function to this.
 
 The last thing that is left is to make our LiveView *react*
 to whenever a user joins or leaves the channel. 
-Therefore, we sync the socket with the infor available
+Therefore, we sync the socket with the info available
 in the Presence channel. The following function 
 **updates the list of active users** whenever someone
 joins or leaves the channel.
@@ -652,7 +653,7 @@ That was a lot! Now let's restart the server
 and open two different tabs. You will see the cursor
 moving in both tabs **in real-time**. Awesome stuff!
 
-<img width="1379" alt="Screenshot 2022-10-24 at 12 43 59" src="https://user-images.githubusercontent.com/17494745/197518449-482a0286-f711-4890-93a4-deb0c9f7aabd.png">
+<img width="1379" alt="multiple_users" src="https://user-images.githubusercontent.com/17494745/197518449-482a0286-f711-4890-93a4-deb0c9f7aabd.png">
 
 
 ## 4. Customization
@@ -699,11 +700,11 @@ Notice the `bg-pattern` class being used in the first line.
 
 After restarting the server, your webpage should look like this:
 
-<img width="1379" alt="Screenshot 2022-10-24 at 13 13 07" src="https://user-images.githubusercontent.com/17494745/197522991-d69eeefb-3641-4862-8181-9f3991742f02.png">
+<img width="1379" alt="styling_page" src="https://user-images.githubusercontent.com/17494745/197522991-d69eeefb-3641-4862-8181-9f3991742f02.png">
 
 ### 4a. Different colors
-Let's do some finishing touches. Each user will have its own 
-color associated. Let's do that. First, let's add the 
+Let's add some finishing touches. Each user will have its own 
+color associated. First, let's add the 
 [`random_color`](https://hexdocs.pm/random_color/RandomColor.html)
 library.
 
@@ -746,7 +747,7 @@ according to the `color` assign. It should look look this:
 
 And you should see a different color under each user's username.
 
-<img width="1379" alt="Screenshot 2022-10-24 at 13 45 13" src="https://user-images.githubusercontent.com/17494745/197528509-121cad50-b4ae-49e4-9784-356ea8e9a2ae.png">
+<img width="1379" alt="different_colors" src="https://user-images.githubusercontent.com/17494745/197528509-121cad50-b4ae-49e4-9784-356ea8e9a2ae.png">
 
 
 If you want to remove the cursor pointer and just have the `svg`
