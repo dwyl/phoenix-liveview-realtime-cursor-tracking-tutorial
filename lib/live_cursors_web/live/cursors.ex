@@ -1,7 +1,6 @@
 defmodule LiveCursorsWeb.Cursors do
   alias LiveCursorsWeb.Presence
   use LiveCursorsWeb, :live_view
-  require Logger
 
   @channel_topic "cursor_page"
 
@@ -48,8 +47,6 @@ defmodule LiveCursorsWeb.Cursors do
   end
 
   def handle_info(%{event: "presence_diff", payload: _payload}, socket) do
-
-    Logger.debug "Var value: #{inspect(Presence.list(@channel_topic))}"
 
     users =
       Presence.list(@channel_topic)
