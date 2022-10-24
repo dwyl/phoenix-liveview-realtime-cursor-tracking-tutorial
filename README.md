@@ -2,7 +2,15 @@
 
 # `Phoenix LiveView` Realtime Cursor Tracking Tutorial
 
-Learn how to create a **simple cursor tracking app** using **Phoenix LiveView** </br>
+<!--
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/phoenix-chat-example/Elixir%20CI?label=build&style=flat-square)
+[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-chat-example/main.svg?style=flat-square)](https://codecov.io/github/dwyl/phoenix-chat-example?branch=main)
+-->
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-chat-example/issues)
+[![HitCount](https://hits.dwyl.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial.svg?style=flat-square&show=unique)](http://hits.dwyl.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial)
+[![Hex pm](https://img.shields.io/hexpm/v/phoenix.svg?style=flat-square)](https://hex.pm/packages/phoenix)
+
+Learn how to create a **simple live cursor tracking app** using **Phoenix LiveView** </br>
 and _learn_ it step-by-step!
 
 </div>
@@ -224,7 +232,7 @@ see the following in your browser.
 we now use TailwindCSS. We're going to make it
 pretty in the next few minutes!
 
-## 2. LiveView with cursors 
+## 2. LiveView with cursors :small_red_triangle:	
 Let's start by adding a LiveView to our application. 
 Let's switch the current default route to a new 
 `live` route in the `lib/live_cursors_web/router.ex` file.
@@ -397,7 +405,7 @@ the cursor should follow your mouse movements.
 <img width="1379" alt="cursor_tracking" src="https://user-images.githubusercontent.com/17494745/197502086-f3a0ff05-5604-41ce-ad4f-3a72b05d8414.png">
 
 
-## 3. Adding users
+## 3. Adding users :adult:
 We have our own mouse cursor moving. We need to 
 *broadcast* this movement information to every user
 that joins the channel. Additionally, we need to 
@@ -656,7 +664,7 @@ moving in both tabs **in real-time**. Awesome stuff!
 <img width="1379" alt="multiple_users" src="https://user-images.githubusercontent.com/17494745/197518449-482a0286-f711-4890-93a4-deb0c9f7aabd.png">
 
 
-## 4. Customization
+## 4. Customization :art:
 Now that we got the main feature working, let's customize
 our page so it looks better! :art:
 
@@ -760,7 +768,7 @@ to the `assets/css/app.css` file:
 }
 ```
 
-# Credits
+# Credits :memo:
 This tutorial was inspired by 
 [Koen van Gilst's](https://koenvangilst.nl/blog/phoenix-liveview-cursors) walkthrough. 
 Be sure to check him out, he's a talented developer!
