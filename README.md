@@ -101,6 +101,18 @@ in your web browser.
 >  (**in incognito mode**, if you want to),
 > and you will see the a new cursor with a new name!
 
+
+You should expect to see something similar to the following:
+
+![cursor-tracking-demo-GIF](https://user-images.githubusercontent.com/194400/197960714-a82e945c-2511-4ff3-bbd1-47ed751ac3ce.gif)
+
+
+# Build It! 
+
+Now that you've seen the app working,
+it's time to _build_ it from scratch!
+
+
 ## 1. Create the App 🆕
 
 In your terminal run the following `mix` command

@@ -6,7 +6,6 @@
       "test/",
       "lib/live_cursors/application.ex",
       "lib/live_cursors_web.ex",
-      "lib/live_cursors_web/router.ex",
       "lib/live_cursors_web/telemetry.ex",
       "lib/live_cursors_web/views/"
     ]

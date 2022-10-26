@@ -55,7 +55,7 @@ defmodule LiveCursorsWeb.CursorsTest do
           end
       end
 
-    test "when mouse changes", %{socket: socket} do
+    test "when mouse changes", %{socket: _socket} do
 
       with_mock LiveCursorsWeb.Presence,
         [
