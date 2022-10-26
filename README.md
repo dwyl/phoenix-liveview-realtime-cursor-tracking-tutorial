@@ -2,11 +2,9 @@
 
 # `Phoenix LiveView` Realtime Cursor Tracking Tutorial
 
-<!--
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/phoenix-chat-example/Elixir%20CI?label=build&style=flat-square)
-[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-chat-example/main.svg?style=flat-square)](https://codecov.io/github/dwyl/phoenix-chat-example?branch=main)
--->
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-chat-example/issues)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/Elixir%20CI?label=build&style=flat-square)
+[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/main.svg?style=flat-square)](https://codecov.io/github/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial?branch=main)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/issues)
 [![HitCount](https://hits.dwyl.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial.svg?style=flat-square&show=unique)](http://hits.dwyl.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial)
 [![Hex pm](https://img.shields.io/hexpm/v/phoenix.svg?style=flat-square)](https://hex.pm/packages/phoenix)
 
@@ -109,15 +107,19 @@ In your terminal run the following `mix` command
 to generate the new Phoenix app:
 
 ```sh
-mix phx.new live_cursors --no-ecto
+mix phx.new live_cursors --no-ecto --no-mailer --no-dashboard --no-gettext
 ```
 
-This command will setup the dependencies (including the liveView dependencies)
-and boilerplate for us a Phoenix project without
-a database. 
+This command will create a new `Phoenix` app 
+and setup the dependencies 
+(including the `LiveView` dependencies)
+The flags: 
+`--no-ecto --no-mailer --no-dashboard --no-gettext`
+just mean we don't want a database, email, dashboard or translation.
+These are not needed in a simple demo/experiment app.
 
 When you see the following prompt in your terminal, 
-press `Y` to install the dependencies.
+press **`Y` to install the dependencies**.
 
 ```sh
 Fetch and install dependencies? [Yn]
@@ -126,10 +128,12 @@ Fetch and install dependencies? [Yn]
 Type <kbd>Y</kbd> followed by the <kbd>Enter</kbd> key.
 That will download all the necessary dependencies.
 
-### 1a. Setting up TailwindCSS
-We are going to be using TailwindCSS to style our page. 
-If this is the first time using TailwindCSS, you 
-can check [our tutorial](https://github.com/dwyl/learn-tailwind)
+### 1a. Setting up `Tailwind CSS`
+
+We are going to be using `Tailwind` to style our page. 
+If this is the first time using `Tailwind`, 
+see:
+[dwyl/**learn-tailwind**](https://github.com/dwyl/learn-tailwind)
 for a primer. 
 
 The reason we are using TailwindCSS is to showcase you
