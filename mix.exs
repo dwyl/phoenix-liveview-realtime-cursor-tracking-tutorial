@@ -7,15 +7,19 @@ defmodule LiveCursors.MixProject do
       version: "0.1.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
 
       # Testing
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test,
-        "coveralls.post": :test, "coveralls.html": :test]
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -57,7 +61,10 @@ defmodule LiveCursors.MixProject do
 
       # Testing
       {:excoveralls, "~> 0.15.0", only: [:test, :dev]},
-      {:mock, "~> 0.3.0", only: :test}
+      {:mock, "~> 0.3.0", only: :test},
+
+      # Code style/quality checking:
+      # {:credo, "~> 1.6.4", only: [:dev, :test], runtime: false},
     ]
   end
 
@@ -69,8 +76,11 @@ defmodule LiveCursors.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      "assets.deploy": ["esbuild default --minify", "tailwind default --minify", "phx.digest"],
+      c: ["coveralls.html"],
+      s: ["phx.server"],
       setup: ["deps.get"],
-      "assets.deploy": ["esbuild default --minify", "tailwind default --minify", "phx.digest"]
+      t: ["test"]
     ]
   end
 end

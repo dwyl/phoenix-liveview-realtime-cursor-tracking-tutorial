@@ -17,45 +17,56 @@ and _learn_ it step-by-step!
 
 # Why? 🤷
 
-As we're building our [MVP](https://github.com/dwyl/mvp),
+As we're building our 
+[MVP](https://github.com/dwyl/mvp),
 we are always trying to leverage the _awesome_ real-time
 features of `Phoenix` and `LiveView`. 
 
 Live cursor tracking will enable _us_ to create a
-team-friendly environment in w hich users will _know_
-what the others are doing.
+team-friendly environment 
+in which `people` can _see_
+what the others are clicking on
+when collaborating in a prioritization 
+(e.g. backlog grooming) exercise.
 
 # What? 💭
 
 This tutorial creates a stylized simple landing page
 showing the cursor of everyone that is connected
-to it. It should take you no more than 20 minutes
-to get up and running!
+to it. 
+It should take you **20 minutes**
+to follow from start to finish.
 
 # Who? 👤
 
-This tutorial is aimed at LiveView beginners 
-who want to understand the ins and outs, while 
-sparkling a bit of [TailwindCSS](https://tailwindcss.com/)
+This tutorial is aimed at `LiveView` beginners 
+who want to understand the ins and outs, 
+while sparkling a bit of 
+[`TailwindCSS`](https://tailwindcss.com/)
 magic :sparkles:.
 
-If you are completely new to Phoenix and LiveView,
-we recommend you follow the **LiveView _Counter_ Tutorial**:
-https://github.com/dwyl/phoenix-liveview-counter-tutorial
+If you are completely new to `Phoenix` and `LiveView`,
+we recommend you follow the **`LiveView` _Counter_ Tutorial**:
+[dwyl/phoenix-liveview-counter-tutorial](https://github.com/dwyl/phoenix-liveview-counter-tutorial)
 
 ### Prerequisites 
+
 This tutorial requires you have `Elixir` and `Phoenix` installed.
-If you you don't, please see [how to install Elixir](https://github.com/dwyl/learn-elixir#installation)
-and [Phoenix](https://hexdocs.pm/phoenix/installation.html#phoenix).
+If you you don't, please see 
+[how to install Elixir](https://github.com/dwyl/learn-elixir#installation)
+and 
+[Phoenix](https://hexdocs.pm/phoenix/installation.html#phoenix).
 
 # How? 💻
 
 ## Step 0: Run the finished app locally
+
 To get a feel of what you are going to build and
 to be _make sure_ it's working in 1 minute, do the
 following steps:
 
 ### Clone the repo
+
 Run the following commands to clone the repo.
 
 ```
@@ -71,8 +82,9 @@ Install the dependencies by running the command:
 mix setup
 ```
 
-This will download dependencies and
-compile your files. It might take a few
+This will download dependencies 
+and compile your files. 
+It might take a few
 minutes!
 
 ### Run the App
