@@ -16,6 +16,8 @@ defmodule LiveCursorsWeb.Router do
 
   scope "/", LiveCursorsWeb do
     pipe_through :browser
+    pipe_through :protect_from_forgery
+
     live "/", Cursors
   end
 
