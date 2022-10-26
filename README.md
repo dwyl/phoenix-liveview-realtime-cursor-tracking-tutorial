@@ -4,14 +4,42 @@
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/Elixir%20CI?label=build&style=flat-square)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/main.svg?style=flat-square)](https://codecov.io/github/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial?branch=main)
+[![Hex.pm](https://img.shields.io/hexpm/v/phoenix?color=brightgreen&style=flat-square)](https://hex.pm/packages/phoenix)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/issues)
 [![HitCount](https://hits.dwyl.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial.svg?style=flat-square&show=unique)](http://hits.dwyl.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial)
-[![Hex pm](https://img.shields.io/hexpm/v/phoenix.svg?style=flat-square)](https://hex.pm/packages/phoenix)
 
-Learn how to create a **simple live cursor tracking app** using **Phoenix LiveView** </br>
-and _learn_ it step-by-step!
+Learn how to create a **live cursor tracking app** using **Phoenix LiveView**!
 
 </div>
+
+<br />
+
+- [`Phoenix LiveView` Realtime Cursor Tracking Tutorial](#phoenix-liveview-realtime-cursor-tracking-tutorial)
+- [Why? 🤷](#why-)
+- [What? 💭](#what-)
+- [Who? 👤](#who-)
+    - [Prerequisites](#prerequisites)
+- [How? 💻](#how-)
+  - [Step 0: Run the finished app locally](#step-0-run-the-finished-app-locally)
+    - [Clone the repo](#clone-the-repo)
+    - [Download the Dependencies](#download-the-dependencies)
+    - [Run the App](#run-the-app)
+- [Build It!](#build-it)
+  - [1. Create the App 🆕](#1-create-the-app-)
+    - [1a. Setting up `Tailwind CSS`](#1a-setting-up-tailwind-css)
+      - [Installing TailwindCSS](#installing-tailwindcss)
+    - [Setup watcher, minification and loading Tailwind](#setup-watcher-minification-and-loading-tailwind)
+    - [1b. Running the Phoenix app](#1b-running-the-phoenix-app)
+  - [2. LiveView with cursors :small_red_triangle:](#2-liveview-with-cursors-small_red_triangle)
+    - [2a. Tracking cursor movement](#2a-tracking-cursor-movement)
+  - [3. Adding users :adult:](#3-adding-users-adult)
+    - [3a. Adding usernames](#3a-adding-usernames)
+    - [3b. Tracking who is online](#3b-tracking-who-is-online)
+  - [4. Customization :art:](#4-customization-art)
+    - [4a. Different colors](#4a-different-colors)
+- [Credits :memo:](#credits-memo)
+
+<br />
 
 # Why? 🤷
 
@@ -197,7 +225,8 @@ mix tailwind.install
 mix tailwind default
 ```
 
-#### Setup watcher, minification and loading Tailwind
+### Setup watcher, minification and loading Tailwind
+
 Throughout development we want Tailwind CLI 
 to track our files for changes. For this, add
 the following watcher in `config/dev.exs` file.
@@ -244,6 +273,7 @@ After all of this, you should be done! You can
 start styling your webpages with some sweet CSS :tada:.
 
 ### 1b. Running the Phoenix app
+
 To make sure everything is working properly, 
 run the following:
 
@@ -261,6 +291,7 @@ we now use TailwindCSS. We're going to make it
 pretty in the next few minutes!
 
 ## 2. LiveView with cursors :small_red_triangle:	
+
 Let's start by adding a LiveView to our application. 
 Let's switch the current default route to a new 
 `live` route in the `lib/live_cursors_web/router.ex` file.
@@ -352,6 +383,7 @@ at the middle of the page.
 
 
 ### 2a. Tracking cursor movement
+
 We are going to use Javascript 
 to track the mouse movement on the client 
 and send it over to the Phoenix server 
@@ -445,6 +477,7 @@ a session will be created and we'll assign a random
 username to the user who joined. 
 
 ### 3a. Adding usernames
+
 To generate random names, we'll be using the 
 [mnemonic_slugs](https://github.com/devshane/mnemonic_slugs) 
 library. To do this, let's install it. 
@@ -514,6 +547,7 @@ moving along with it.
 <img width="1379" alt="cursor_with_username" src="https://user-images.githubusercontent.com/17494745/197506546-2208c9ee-6f36-4625-b49b-126eef60d629.png">
 
 ### 3b. Tracking who is online
+
 This is the most exciting part of the tutorial. 
 We are going to have different users have their 
 cursors and see them in real-time! For this, we
@@ -693,6 +727,7 @@ moving in both tabs **in real-time**. Awesome stuff!
 
 
 ## 4. Customization :art:
+
 Now that we got the main feature working, let's customize
 our page so it looks better! :art:
 
@@ -797,6 +832,9 @@ to the `assets/css/app.css` file:
 ```
 
 # Credits :memo:
+
 This tutorial was inspired by 
-[Koen van Gilst's](https://koenvangilst.nl/blog/phoenix-liveview-cursors) walkthrough. 
-Be sure to check him out, he's a talented developer!
+[Koen van Gilst's](https://koenvangilst.nl/blog/phoenix-liveview-cursors) 
+walkthrough. 
+Be sure to follow him: 
+[**`@vnglst`**](https://github.com/vnglst)
