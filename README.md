@@ -6,7 +6,7 @@
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/main.svg?style=flat-square)](https://codecov.io/github/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial?branch=main)
 [![Hex.pm](https://img.shields.io/hexpm/v/phoenix?color=brightgreen&style=flat-square)](https://hex.pm/packages/phoenix)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/issues)
-[![HitCount](https://hits.dwyl.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial.svg?style=flat-square&show=unique)](http://hits.dwyl.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial)
+[![HitCount](https://hits.dwyl.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial.svg?style=flat-square&show=unique)](https://hits.dwyl.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial)
 
 Learn how to create a **live cursor tracking app** using **Phoenix LiveView**!
 
