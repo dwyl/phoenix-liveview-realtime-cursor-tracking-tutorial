@@ -46,6 +46,11 @@ defmodule LiveCursorsWeb.Cursors do
     {:noreply, socket}
   end
 
+  def handle_event("login", _value, socket) do
+    dbg(socket.assigns)
+    {:noreply, push_redirect(socket, to: "/login")}
+  end
+
   def handle_info(%{event: "presence_diff", payload: _payload}, socket) do
 
     users =
