@@ -1,7 +1,18 @@
 <div class="bg-pattern flex justify-center items-center h-screen w-screen bg-[#eafbfa]">
   <div class="absolute pointer-events-none">
-    <p class="text-[4rem] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-[#a7edff] to-[#ff6565] opacity-20">just use your mouse</p>
+    <p class="text-[4rem] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-[#a7edff] to-[#ff6565] opacity-20 text-center">just use your mouse</p>
   </div>
+
+
+  <input
+    id="submit-msg"
+    type="submit"
+    class="absolute right-6 bottom-6 flex-shrink-0
+     text-white bg-gradient-to-r to-[#b6c5ff] from-[#e07db3]
+     text-base font-semibold py-2 px-4 rounded-lg shadow-xl
+     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-pink-200"
+    value="Login"
+  />
 
   <ul class="list-none mt-9 max-h-full max-w-full" id="cursor" phx-hook="TrackClientCursor">
     <%= for user <- @users do %>
