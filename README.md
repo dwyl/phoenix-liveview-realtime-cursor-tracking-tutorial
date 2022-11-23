@@ -832,6 +832,7 @@ to the `assets/css/app.css` file:
 ```
 
 ## 5. Adding authentication 🔐
+
 Right now, the app assigns a random name
 to the user once he starts using the app.
 However, it would be interesting 
@@ -846,6 +847,7 @@ package to easily integrate this feature.
 Let's do this!
 
 ### 5a. Add a login button
+
 We should add a way for the user to login.
 Let's add a button to the canvas.
 In the `lib/live_cursors_web/live/cursors.html.heex` file,
@@ -897,6 +899,7 @@ but before that,
 we need to add `auth_plug` to our project.
 
 ### 5b. Add `auth_plug`
+
 Let's get this up and running fast!
 Inside the `mix.exs` file,
 add the following inside the `deps` section.
@@ -1013,6 +1016,7 @@ If you had any trouble setting `auth_plug` running,
 as the guide is more thorough there.
 
 ### 5c. Showing username
+
 Let's make the necessary changes so,
 after logging in, the username of the user
 is shown next to the cursor.
