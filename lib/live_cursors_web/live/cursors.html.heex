@@ -4,16 +4,29 @@
   </div>
 
 
-  <input
-    id="submit-msg"
-    type="submit"
-    phx-click="login"
-    class="absolute right-6 bottom-6 flex-shrink-0
-     text-white bg-gradient-to-r to-[#b6c5ff] from-[#e07db3]
-     text-base font-semibold py-2 px-4 rounded-lg shadow-xl
-     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-pink-200"
-    value="Login"
-  />
+  <%= if @loggedin do %>
+    <input
+      id="submit-msg-logout"
+      type="submit"
+      phx-click="logout"
+      class="absolute right-6 bottom-6 flex-shrink-0
+      text-white bg-gradient-to-r to-[#ffb6b6] from-[#e07db3]
+      text-base font-semibold py-2 px-4 rounded-lg shadow-xl
+      hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-pink-200"
+      value="Logout"
+    />
+  <% else %>
+    <input
+      id="submit-msg-login"
+      type="submit"
+      phx-click="login"
+      class="absolute right-6 bottom-6 flex-shrink-0
+      text-white bg-gradient-to-r to-[#b6c5ff] from-[#e07db3]
+      text-base font-semibold py-2 px-4 rounded-lg shadow-xl
+      hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-pink-200"
+      value="Login"
+    />
+  <% end %>
 
   <ul class="list-none mt-9 max-h-full max-w-full" id="cursor" phx-hook="TrackClientCursor">
     <%= for user <- @users do %>

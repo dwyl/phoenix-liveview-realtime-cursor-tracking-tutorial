@@ -14,9 +14,7 @@ defmodule LiveCursorsWeb.Router do
   pipeline :authOptional, do: plug(AuthPlugOptional)
 
   scope "/", LiveCursorsWeb do
-    pipe_through :browser
-    pipe_through :protect_from_forgery
-    pipe_through :authOptional
+    pipe_through [:browser, :protect_from_forgery, :authOptional]
 
     live "/", Cursors
     get "/login", AuthController, :login
