@@ -72,5 +72,17 @@ defmodule LiveCursorsWeb.CursorsTest do
           end
       end
 
+    test "logging in", %{socket: socket} do
+
+      {:noreply, socket} = Cursors.handle_event("login", nil, socket)
+      assert socket != nil
+    end
+
+    test "logging out", %{socket: socket} do
+
+      {:noreply, socket} = Cursors.handle_event("logout", nil, socket)
+      assert socket != nil
+    end
+
   end
 end

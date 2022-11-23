@@ -9,10 +9,8 @@ defmodule LiveCursorsWeb.AuthController do
     |> AuthPlug.Helpers.strip_struct_metadata()
     |> Useful.atomize_map_keys()
 
-    socket =
-      socket
-      |> assign_new(:person, fn -> claims end)
-      |> assign_new(:loggedin, fn -> true end)
+    socket = assign_new(socket, :person, fn -> claims end)
+    socket = assign_new(socket, :loggedin, fn -> true end)
 
 
     {:cont, socket}

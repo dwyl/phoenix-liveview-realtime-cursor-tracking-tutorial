@@ -1,8 +1,10 @@
 defmodule LiveCursorsWeb.AuthControllerTest do
+  alias LiveCursorsWeb.AuthController
   use LiveCursorsWeb.ConnCase
 
+
   test "Logout link displayed when loggedin", %{conn: conn} do
-    data = %{email: "test@dwyl.com", givenName: "Simon", picture: "this", auth_provider: "GitHub"}
+    data = %{email: "test@dwyl.com", givenName: "Simon", picture: "this", auth_provider: "GitHub", username: "SimonLabs"}
     jwt = AuthPlug.Token.generate_jwt!(data)
 
     conn = get(conn, "/?jwt=#{jwt}")
@@ -32,5 +34,14 @@ defmodule LiveCursorsWeb.AuthControllerTest do
   test "test login link redirect to authdemo.fly.dev", %{conn: conn} do
     conn = get(conn, "/login")
     assert redirected_to(conn, 302) =~ "authdemo.fly.dev"
+  end
+
+  test "test mount", %{conn: conn} do
+    data = %{email: "test@dwyl.com", givenName: "Simon", picture: "this", auth_provider: "GitHub", username: "SimonLabs"}
+    jwt = AuthPlug.Token.generate_jwt!(data)
+
+    {:cont, socket} = AuthController.add_assigns(:default, nil, %{jwt: jwt}, %Phoenix.LiveView.Socket{})
+
+    assert socket != nil
   end
 end
