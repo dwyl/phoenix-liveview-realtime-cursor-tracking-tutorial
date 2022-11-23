@@ -859,7 +859,7 @@ change it so it looks like the following.
 
 
   <input
-    id="submit-msg"
+    id="auth-btn"
     type="submit"
     phx-click="login"
     class="absolute right-6 bottom-6 flex-shrink-0
@@ -944,6 +944,28 @@ and add the following.
 ```elixir
 defmodule LiveCursorsWeb.AuthController do
   use LiveCursorsWeb, :controller
+  import Phoenix.LiveView, only: [assign_new: 3]
+
+  def add_assigns(:default, _params, %{"jwt" => jwt} = _session, socket) do
+
+    claims = jwt
+    |> AuthPlug.Token.verify_jwt!()
+    |> AuthPlug.Helpers.strip_struct_metadata()
+    |> Useful.atomize_map_keys()
+
+    socket =
+      socket
+      |> assign_new(:person, fn -> claims end)
+      |> assign_new(:loggedin, fn -> true end)
+
+
+    {:cont, socket}
+  end
+
+  def add_assigns(:default, _params, _session, socket) do
+    socket = assign_new(socket, :loggedin, fn -> false end)
+    {:cont, socket}
+  end
 
   def login(conn, _params) do
     redirect(conn, external: AuthPlug.get_auth_url(conn, "/"))
@@ -957,6 +979,12 @@ defmodule LiveCursorsWeb.AuthController do
   end
 end
 ```
+
+The `add_assigns/3` functions will be used
+to alter the socket with auth assigns. 
+We will be using a `loggedin` and `person` assign,
+where the latter has information about
+the user that is logged in.
 
 Lastly, open the `router.ex` file.
 We are going to create an [*Optional Path*](https://github.com/dwyl/auth_plug#optional-auth)
@@ -986,7 +1014,7 @@ as the guide is more thorough there.
 
 ### 5c. Showing username
 Let's make the necessary changes so,
-after login, the username of the user
+after logging in, the username of the user
 is shown next to the cursor.
 
 Firstly, let's handle the `login` event
@@ -999,16 +1027,137 @@ add the following handler.
   def handle_event("login", _value, socket) do
     {:noreply, push_redirect(socket, to: "/login")}
   end
+
+  def handle_event("logout", _value, socket) do
+    {:noreply, push_redirect(socket, to: "/logout")}
+  end
 ```
 
-This will redirect the user to the `/login` URL path,
+The `login` will redirect the user to the `/login` URL path,
 which is handled by the `AuthController`.
+The same thing happens to the `logout` event.
+
+Now let's change the UI.
+Remember the button we added in the UI previously?
+Let's change it. 
+We are going to display a different button
+depending on whether the user is logged in
+or not.
+Change `lib/live_cursors_web/live/cursors.html.heex`
+so it looks like the following.
+
+```html
+<div class="bg-pattern flex justify-center items-center h-screen w-screen bg-[#eafbfa]">
+  <div class="absolute pointer-events-none">
+    <p class="text-[4rem] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-[#a7edff] to-[#ff6565] opacity-20 text-center">just use your mouse</p>
+  </div>
 
 
-//TODO finish
+  <%= if @loggedin do %>
+    <input
+      id="submit-msg-logout"
+      type="submit"
+      phx-click="logout"
+      class="absolute right-6 bottom-6 flex-shrink-0
+      text-white bg-gradient-to-r to-[#ffb6b6] from-[#e07db3]
+      text-base font-semibold py-2 px-4 rounded-lg shadow-xl
+      hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-pink-200"
+      value="Logout"
+    />
+  <% else %>
+    <input
+      id="submit-msg-login"
+      type="submit"
+      phx-click="login"
+      class="absolute right-6 bottom-6 flex-shrink-0
+      text-white bg-gradient-to-r to-[#b6c5ff] from-[#e07db3]
+      text-base font-semibold py-2 px-4 rounded-lg shadow-xl
+      hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-pink-200"
+      value="Login"
+    />
+  <% end %>
 
-### 5x. Testing auth
-//TODO add testing sectino
+  <ul class="list-none mt-9 max-h-full max-w-full" id="cursor" phx-hook="TrackClientCursor">
+    <%= for user <- @users do %>
+      <li style={"left: #{user.x}%; top: #{user.y}%"} class="flex flex-col absolute pointer-events-none whitespace-nowrap overflow-hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="32" fill="none" viewBox="0 0 31 32">
+          <path fill="url(#a)" d="m.609 10.86 5.234 15.488c1.793 5.306 8.344 7.175 12.666 3.612l9.497-7.826c4.424-3.646 3.69-10.625-1.396-13.27L11.88 1.2C5.488-2.124-1.697 4.033.609 10.859Z"/>
+          <defs>
+            <linearGradient id="a" x1="-4.982" x2="23.447" y1="-8.607" y2="25.891" gradientUnits="userSpaceOnUse">
+              <stop style={"stop-color: #{user.color}"}/>
+              <stop offset="1" stop-color="#BDACFF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span style={"background-color: #{user.color};"} class="mt-1 ml-4 px-1 text-sm text-white rounded-xl">
+          <%= user.username %>
+        </span>
+      </li>
+    <% end %>
+  </ul>
+</div>
+```
+
+We are using the `loggedin` socket assign 
+to display a button saying `Login` or `Logout`.
+
+The last thing to do is 
+changing the username of the user!
+
+In the `lib/live_cursors_web/live/cursors.ex` file,
+change `mount/3` so it looks like this.
+
+```elixir
+  def mount(params, session, socket) do
+
+    # Add auth assigns to socket
+    {_cont, socket} = AuthController.add_assigns(:default, params, session, socket)
+
+    username = if (socket.assigns.loggedin) do
+      socket.assigns.person.username || socket.assigns.person.givenName || "guest"
+    else
+       MnemonicSlugs.generate_slug
+    end
+
+    color = RandomColor.hex()
+
+    Presence.track(self(), @channel_topic, socket.id, %{
+      socket_id: socket.id,
+      x: 50,
+      y: 50,
+      username: username,
+      color: color
+    })
+
+    LiveCursorsWeb.Endpoint.subscribe(@channel_topic)
+
+    initial_users =
+      Presence.list(@channel_topic)
+      |> Enum.map(fn {_, data} -> data[:metas] |> List.first() end)
+
+    updated =
+      socket
+      |> assign(:username, username)
+      |> assign(:users, initial_users)
+      |> assign(:socket_id, socket.id)
+
+    {:ok, updated}
+  end
+```
+
+We are calling the `add_assigns/4` method in `AuthController`
+so it adds the proper auth socket assigns.
+After adding these, 
+we check if the user is logged in or not.
+If he is, we use the `username` or `givenName` field.
+
+And that's it! 
+You should now see your username on the screen,
+like so!
+
+![auth_demo](https://user-images.githubusercontent.com/17494745/203618159-0f9ec94f-44b2-4fc9-b5e8-a2c5eb097c53.gif)
+
+
 
 # Credits :memo:
 
