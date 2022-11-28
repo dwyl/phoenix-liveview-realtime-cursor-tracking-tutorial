@@ -30,14 +30,18 @@ Learn how to create a **live cursor tracking app** using **Phoenix LiveView**!
       - [Installing TailwindCSS](#installing-tailwindcss)
     - [Setup watcher, minification and loading Tailwind](#setup-watcher-minification-and-loading-tailwind)
     - [1b. Running the Phoenix app](#1b-running-the-phoenix-app)
-  - [2. LiveView with cursors :small_red_triangle:](#2-liveview-with-cursors-small_red_triangle)
+  - [2. LiveView with cursors 🔺](#2-liveview-with-cursors-)
     - [2a. Tracking cursor movement](#2a-tracking-cursor-movement)
   - [3. Adding users :adult:](#3-adding-users-adult)
     - [3a. Adding usernames](#3a-adding-usernames)
     - [3b. Tracking who is online](#3b-tracking-who-is-online)
-  - [4. Customization :art:](#4-customization-art)
+  - [4. Customization 🎨](#4-customization-)
     - [4a. Different colors](#4a-different-colors)
-- [Credits :memo:](#credits-memo)
+  - [5. Adding authentication 🔐](#5-adding-authentication-)
+    - [5a. Add a login button](#5a-add-a-login-button)
+    - [5b. Add `auth_plug`](#5b-add-auth_plug)
+    - [5c. Showing username](#5c-showing-username)
+- [Credits 📝](#credits-)
 
 <br />
 
@@ -290,7 +294,7 @@ see the following in your browser.
 we now use TailwindCSS. We're going to make it
 pretty in the next few minutes!
 
-## 2. LiveView with cursors :small_red_triangle:	
+## 2. LiveView with cursors 🔺
 
 Let's start by adding a LiveView to our application. 
 Let's switch the current default route to a new 
@@ -726,10 +730,10 @@ moving in both tabs **in real-time**. Awesome stuff!
 <img width="1379" alt="multiple_users" src="https://user-images.githubusercontent.com/17494745/197518449-482a0286-f711-4890-93a4-deb0c9f7aabd.png">
 
 
-## 4. Customization :art:
+## 4. Customization 🎨
 
 Now that we got the main feature working, let's customize
-our page so it looks better! :art:
+our page so it looks better! 🎨
 
 Let's add a background to the page. 
 We used [heropatterns.com](https://heropatterns.com/)
@@ -831,7 +835,325 @@ to the `assets/css/app.css` file:
 }
 ```
 
-# Credits :memo:
+## 5. Adding authentication 🔐
+
+Right now, the app assigns a random name
+to the user once he starts using the app.
+However, it would be interesting 
+for the user to **login** using 
+a given provider (such as Google or Github)
+and show the related username for everyone to see!
+
+For this, we can leverage the 
+[`auth_plug`](https://github.com/dwyl/auth_plug)
+package to easily integrate this feature.
+
+Let's do this!
+
+### 5a. Add a login button
+
+We should add a way for the user to login.
+Let's add a button to the canvas.
+In the `lib/live_cursors_web/live/cursors.html.heex` file,
+change it so it looks like the following.
+
+```html
+<div class="bg-pattern flex justify-center items-center h-screen w-screen bg-[#eafbfa]">
+  <div class="absolute pointer-events-none">
+    <p class="text-[4rem] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-[#a7edff] to-[#ff6565] opacity-20 text-center">just use your mouse</p>
+  </div>
+
+
+  <input
+    id="auth-btn"
+    type="submit"
+    phx-click="login"
+    class="absolute right-6 bottom-6 flex-shrink-0
+     text-white bg-gradient-to-r to-[#b6c5ff] from-[#e07db3]
+     text-base font-semibold py-2 px-4 rounded-lg shadow-xl
+     hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-pink-200"
+    value="Login"
+  />
+
+  <ul class="list-none mt-9 max-h-full max-w-full" id="cursor" phx-hook="TrackClientCursor">
+    <%= for user <- @users do %>
+      <li style={"left: #{user.x}%; top: #{user.y}%"} class="flex flex-col absolute pointer-events-none whitespace-nowrap overflow-hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="32" fill="none" viewBox="0 0 31 32">
+          <path fill="url(#a)" d="m.609 10.86 5.234 15.488c1.793 5.306 8.344 7.175 12.666 3.612l9.497-7.826c4.424-3.646 3.69-10.625-1.396-13.27L11.88 1.2C5.488-2.124-1.697 4.033.609 10.859Z"/>
+          <defs>
+            <linearGradient id="a" x1="-4.982" x2="23.447" y1="-8.607" y2="25.891" gradientUnits="userSpaceOnUse">
+              <stop style={"stop-color: #{user.color}"}/>
+              <stop offset="1" stop-color="#BDACFF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span style={"background-color: #{user.color};"} class="mt-1 ml-4 px-1 text-sm text-white rounded-xl">
+          <%= user.username %>
+        </span>
+      </li>
+    <% end %>
+  </ul>
+</div>
+```
+
+We've simply added a button that,
+once clicked, creates a `login` event.
+We are going to eventually handle this event,
+but before that,
+we need to add `auth_plug` to our project.
+
+### 5b. Add `auth_plug`
+
+Let's get this up and running fast!
+Inside the `mix.exs` file,
+add the following inside the `deps` section.
+
+```elixir
+{:auth_plug, "~> 1.5"},
+```
+
+and run 
+
+```sh
+mix deps.get
+```
+
+Afterwards, visit https://authdemo.fly.dev/apps/new,
+sign in using a preferred provider 
+and create an app for the `localhost:4000` URL,
+the same URL you are running the app from.
+
+![flyapp](https://user-images.githubusercontent.com/17494745/203396767-a73a6c5e-f484-49a2-9ece-225e5b09f740.png)
+
+After creating an app, 
+you should be prompted with an image similar
+to the following.
+
+![token](https://user-images.githubusercontent.com/194400/202419365-e06c43d6-c537-4646-a1a3-90320fb3aa59.png)
+
+You now are going to run the app with this `AUTH_API_KEY`
+environment variable. 
+To run the app with this environment variable,
+
+```sh
+export AUTH_API_KEY=2cfxNaMmkvwKmHncbYAL58mLZMs/2cfxNa4RnU12gYYSwPvp2hSPFdVDcbdK/authdemo.fly.dev
+
+mix phx.server
+```
+
+Now, let's create the `AuthController`.
+This controller will be used to login 
+and logout the user in the app.
+
+Create a file 
+`lib/live_cursors_web/controllers/auth_controller.ex`
+and add the following.
+
+```elixir
+defmodule LiveCursorsWeb.AuthController do
+  use LiveCursorsWeb, :controller
+  import Phoenix.LiveView, only: [assign_new: 3]
+
+  def add_assigns(:default, _params, %{"jwt" => jwt} = _session, socket) do
+    {:cont, AuthPlug.assign_jwt_to_socket(socket, &assign_new/3, jwt)}
+  end
+
+  def add_assigns(:default, _params, _session, socket) do
+    {:cont, assign_new(socket, :loggedin, fn -> false end)}
+  end
+
+  def login(conn, _params) do
+    redirect(conn, external: AuthPlug.get_auth_url(conn, "/"))
+  end
+
+  def logout(conn, _params) do
+    conn
+    |> AuthPlug.logout()
+    |> put_status(302)
+    |> redirect(to: "/")
+  end
+end
+```
+
+The `add_assigns/3` functions will be used
+to alter the socket with auth assigns. 
+We will be using a `loggedin` and `person` assign,
+where the latter has information about
+the user that is logged in.
+
+Lastly, open the `router.ex` file.
+We are going to create an [*Optional Path*](https://github.com/dwyl/auth_plug#optional-auth)
+pipeline, which will allow users to access a route, 
+even if they are not logged in.
+
+Change the code so it looks like the following.
+
+```elixir
+  pipeline :authOptional, do: plug(AuthPlugOptional)
+
+  scope "/", LiveCursorsWeb do
+    pipe_through :browser
+    pipe_through :protect_from_forgery
+    pipe_through :authOptional
+
+    live "/", Cursors
+    get "/login", AuthController, :login
+    get "/logout", AuthController, :logout
+  end
+```
+
+And you should be sorted!
+If you had any trouble setting `auth_plug` running,
+[check their docs](https://github.com/dwyl/phoenix-chat-example/blob/add-auth/auth.md),
+as the guide is more thorough there.
+
+### 5c. Showing username
+
+Let's make the necessary changes so,
+after logging in, the username of the user
+is shown next to the cursor.
+
+Firstly, let's handle the `login` event
+we defined earlier.
+
+In the `lib/live_cursors_web/live/cursors.ex` file,
+add the following handler.
+
+```elixir
+  def handle_event("login", _value, socket) do
+    {:noreply, push_redirect(socket, to: "/login")}
+  end
+
+  def handle_event("logout", _value, socket) do
+    {:noreply, push_redirect(socket, to: "/logout")}
+  end
+```
+
+The `login` will redirect the user to the `/login` URL path,
+which is handled by the `AuthController`.
+The same thing happens to the `logout` event.
+
+Now let's change the UI.
+Remember the button we added in the UI previously?
+Let's change it. 
+We are going to display a different button
+depending on whether the user is logged in
+or not.
+Change `lib/live_cursors_web/live/cursors.html.heex`
+so it looks like the following.
+
+```html
+<div class="bg-pattern flex justify-center items-center h-screen w-screen bg-[#eafbfa]">
+  <div class="absolute pointer-events-none">
+    <p class="text-[4rem] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-[#a7edff] to-[#ff6565] opacity-20 text-center">just use your mouse</p>
+  </div>
+
+
+  <%= if @loggedin do %>
+    <input
+      id="submit-msg-logout"
+      type="submit"
+      phx-click="logout"
+      class="absolute right-6 bottom-6 flex-shrink-0
+      text-white bg-gradient-to-r to-[#ffb6b6] from-[#e07db3]
+      text-base font-semibold py-2 px-4 rounded-lg shadow-xl
+      hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-pink-200"
+      value="Logout"
+    />
+  <% else %>
+    <input
+      id="submit-msg-login"
+      type="submit"
+      phx-click="login"
+      class="absolute right-6 bottom-6 flex-shrink-0
+      text-white bg-gradient-to-r to-[#b6c5ff] from-[#e07db3]
+      text-base font-semibold py-2 px-4 rounded-lg shadow-xl
+      hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-pink-200"
+      value="Login"
+    />
+  <% end %>
+
+  <ul class="list-none mt-9 max-h-full max-w-full" id="cursor" phx-hook="TrackClientCursor">
+    <%= for user <- @users do %>
+      <li style={"left: #{user.x}%; top: #{user.y}%"} class="flex flex-col absolute pointer-events-none whitespace-nowrap overflow-hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="32" fill="none" viewBox="0 0 31 32">
+          <path fill="url(#a)" d="m.609 10.86 5.234 15.488c1.793 5.306 8.344 7.175 12.666 3.612l9.497-7.826c4.424-3.646 3.69-10.625-1.396-13.27L11.88 1.2C5.488-2.124-1.697 4.033.609 10.859Z"/>
+          <defs>
+            <linearGradient id="a" x1="-4.982" x2="23.447" y1="-8.607" y2="25.891" gradientUnits="userSpaceOnUse">
+              <stop style={"stop-color: #{user.color}"}/>
+              <stop offset="1" stop-color="#BDACFF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span style={"background-color: #{user.color};"} class="mt-1 ml-4 px-1 text-sm text-white rounded-xl">
+          <%= user.username %>
+        </span>
+      </li>
+    <% end %>
+  </ul>
+</div>
+```
+
+We are using the `loggedin` socket assign 
+to display a button saying `Login` or `Logout`.
+
+The last thing to do is 
+changing the username of the user!
+
+In the `lib/live_cursors_web/live/cursors.ex` file,
+change `mount/3` so it looks like this.
+
+```elixir
+  def mount(params, session, socket) do
+
+    # Add auth assigns to socket
+    {_cont, socket} = AuthController.add_assigns(:default, params, session, socket)
+
+    username = if (socket.assigns.loggedin) do
+      socket.assigns.person.username || socket.assigns.person.givenName || "guest"
+    else
+       MnemonicSlugs.generate_slug
+    end
+
+    color = RandomColor.hex()
+
+    Presence.track(self(), @channel_topic, socket.id, %{
+      socket_id: socket.id,
+      x: 50,
+      y: 50,
+      username: username,
+      color: color
+    })
+
+    LiveCursorsWeb.Endpoint.subscribe(@channel_topic)
+
+    initial_users =
+      Presence.list(@channel_topic)
+      |> Enum.map(fn {_, data} -> data[:metas] |> List.first() end)
+
+    updated =
+      socket
+      |> assign(:username, username)
+      |> assign(:users, initial_users)
+      |> assign(:socket_id, socket.id)
+
+    {:ok, updated}
+  end
+```
+
+We are calling the `add_assigns/4` method in `AuthController`
+so it adds the proper auth socket assigns.
+After adding these, 
+we check if the user is logged in or not.
+If he is, we use the `username` or `givenName` field.
+
+And that's it! 
+You should now see your username on the screen,
+like so!
+
+![auth_demo](https://user-images.githubusercontent.com/17494745/203618159-0f9ec94f-44b2-4fc9-b5e8-a2c5eb097c53.gif)
+
+# Credits 📝
 
 This tutorial was inspired by 
 [Koen van Gilst's](https://koenvangilst.nl/blog/phoenix-liveview-cursors) 

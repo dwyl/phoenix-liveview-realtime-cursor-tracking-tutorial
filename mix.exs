@@ -59,10 +59,11 @@ defmodule LiveCursors.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:mnemonic_slugs, "~> 0.0.3"},
       {:random_color, "~> 0.1.0"},
+      {:auth_plug, "~> 1.5.1"},
 
       # Testing
       {:excoveralls, "~> 0.15.0", only: [:test, :dev]},
-      {:mock, "~> 0.3.0", only: :test},
+      {:mock, "~> 0.3.0", only: :test}
 
       # Code style/quality checking:
       # {:credo, "~> 1.6.4", only: [:dev, :test], runtime: false},

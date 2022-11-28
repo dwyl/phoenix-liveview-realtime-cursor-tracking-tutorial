@@ -1,12 +1,21 @@
 defmodule LiveCursorsWeb.Cursors do
+  alias LiveCursorsWeb.AuthController
   alias LiveCursorsWeb.Presence
   use LiveCursorsWeb, :live_view
 
   @channel_topic "cursor_page"
 
-  def mount(_params, _session, socket) do
+  def mount(params, session, socket) do
+    # Add auth assigns to socket
+    {_cont, socket} = AuthController.add_assigns(:default, params, session, socket)
 
-    username = MnemonicSlugs.generate_slug
+    username =
+      if socket.assigns.loggedin do
+        socket.assigns.person.username || socket.assigns.person.givenName || "guest"
+      else
+        MnemonicSlugs.generate_slug()
+      end
+
     color = RandomColor.hex()
 
     Presence.track(self(), @channel_topic, socket.id, %{
@@ -46,8 +55,15 @@ defmodule LiveCursorsWeb.Cursors do
     {:noreply, socket}
   end
 
-  def handle_info(%{event: "presence_diff", payload: _payload}, socket) do
+  def handle_event("login", _value, socket) do
+    {:noreply, push_redirect(socket, to: "/login")}
+  end
 
+  def handle_event("logout", _value, socket) do
+    {:noreply, push_redirect(socket, to: "/logout")}
+  end
+
+  def handle_info(%{event: "presence_diff", payload: _payload}, socket) do
     users =
       Presence.list(@channel_topic)
       |> Enum.map(fn {_, data} -> data[:metas] |> List.first() end)

@@ -10,10 +10,13 @@ defmodule LiveCursorsWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :authOptional, do: plug(AuthPlugOptional)
+
   scope "/", LiveCursorsWeb do
-    pipe_through :browser
-    pipe_through :protect_from_forgery
+    pipe_through [:browser, :protect_from_forgery, :authOptional]
 
     live "/", Cursors
+    get "/login", AuthController, :login
+    get "/logout", AuthController, :logout
   end
 end

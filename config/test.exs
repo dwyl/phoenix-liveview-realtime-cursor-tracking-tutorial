@@ -8,8 +8,7 @@ config :live_cursors, LiveCursorsWeb.Endpoint,
   server: false
 
 # In test we don't send emails.
-config :live_cursors, LiveCursors.Mailer,
-  adapter: Swoosh.Adapters.Test
+config :live_cursors, LiveCursors.Mailer, adapter: Swoosh.Adapters.Test
 
 # Print only warnings and errors during test
 config :logger, level: :warn
