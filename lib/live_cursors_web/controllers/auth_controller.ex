@@ -4,15 +4,7 @@ defmodule LiveCursorsWeb.AuthController do
 
   def add_assigns(:default, _params, %{"jwt" => jwt} = _session, socket) do
 
-    claims = jwt
-    |> AuthPlug.Token.verify_jwt!()
-    |> AuthPlug.Helpers.strip_struct_metadata()
-    |> Useful.atomize_map_keys()
-
-    socket = assign_new(socket, :person, fn -> claims end)
-    socket = assign_new(socket, :loggedin, fn -> true end)
-
-
+    socket = AuthPlug.assign_jwt_to_socket(socket, &assign_new/3, jwt);
     {:cont, socket}
   end
 
