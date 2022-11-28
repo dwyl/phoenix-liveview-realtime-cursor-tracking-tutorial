@@ -10,7 +10,6 @@ defmodule LiveCursorsWeb.Router do
     plug :put_secure_browser_headers
   end
 
-
   pipeline :authOptional, do: plug(AuthPlugOptional)
 
   scope "/", LiveCursorsWeb do

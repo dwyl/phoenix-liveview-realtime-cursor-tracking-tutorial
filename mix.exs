@@ -63,7 +63,7 @@ defmodule LiveCursors.MixProject do
 
       # Testing
       {:excoveralls, "~> 0.15.0", only: [:test, :dev]},
-      {:mock, "~> 0.3.0", only: :test},
+      {:mock, "~> 0.3.0", only: :test}
 
       # Code style/quality checking:
       # {:credo, "~> 1.6.4", only: [:dev, :test], runtime: false},

@@ -3,8 +3,7 @@ defmodule LiveCursorsWeb.AuthController do
   import Phoenix.LiveView, only: [assign_new: 3]
 
   def add_assigns(:default, _params, %{"jwt" => jwt} = _session, socket) do
-
-    socket = AuthPlug.assign_jwt_to_socket(socket, &assign_new/3, jwt);
+    socket = AuthPlug.assign_jwt_to_socket(socket, &assign_new/3, jwt)
     {:cont, socket}
   end
 

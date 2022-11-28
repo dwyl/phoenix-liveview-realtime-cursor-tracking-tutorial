@@ -2,9 +2,15 @@ defmodule LiveCursorsWeb.AuthControllerTest do
   alias LiveCursorsWeb.AuthController
   use LiveCursorsWeb.ConnCase
 
-
   test "Logout link displayed when loggedin", %{conn: conn} do
-    data = %{email: "test@dwyl.com", givenName: "Simon", picture: "this", auth_provider: "GitHub", username: "SimonLabs"}
+    data = %{
+      email: "test@dwyl.com",
+      givenName: "Simon",
+      picture: "this",
+      auth_provider: "GitHub",
+      username: "SimonLabs"
+    }
+
     jwt = AuthPlug.Token.generate_jwt!(data)
 
     conn = get(conn, "/?jwt=#{jwt}")
@@ -37,10 +43,18 @@ defmodule LiveCursorsWeb.AuthControllerTest do
   end
 
   test "test mount", %{conn: conn} do
-    data = %{email: "test@dwyl.com", givenName: "Simon", picture: "this", auth_provider: "GitHub", username: "SimonLabs"}
+    data = %{
+      email: "test@dwyl.com",
+      givenName: "Simon",
+      picture: "this",
+      auth_provider: "GitHub",
+      username: "SimonLabs"
+    }
+
     jwt = AuthPlug.Token.generate_jwt!(data)
 
-    {:cont, socket} = AuthController.add_assigns(:default, nil, %{jwt: jwt}, %Phoenix.LiveView.Socket{})
+    {:cont, socket} =
+      AuthController.add_assigns(:default, nil, %{jwt: jwt}, %Phoenix.LiveView.Socket{})
 
     assert socket != nil
   end

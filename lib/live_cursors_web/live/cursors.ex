@@ -6,15 +6,15 @@ defmodule LiveCursorsWeb.Cursors do
   @channel_topic "cursor_page"
 
   def mount(params, session, socket) do
-
     # Add auth assigns to socket
     {_cont, socket} = AuthController.add_assigns(:default, params, session, socket)
 
-    username = if (socket.assigns.loggedin) do
-      socket.assigns.person.username || socket.assigns.person.givenName || "guest"
-    else
-       MnemonicSlugs.generate_slug
-    end
+    username =
+      if socket.assigns.loggedin do
+        socket.assigns.person.username || socket.assigns.person.givenName || "guest"
+      else
+        MnemonicSlugs.generate_slug()
+      end
 
     color = RandomColor.hex()
 
@@ -64,7 +64,6 @@ defmodule LiveCursorsWeb.Cursors do
   end
 
   def handle_info(%{event: "presence_diff", payload: _payload}, socket) do
-
     users =
       Presence.list(@channel_topic)
       |> Enum.map(fn {_, data} -> data[:metas] |> List.first() end)
