@@ -30,18 +30,18 @@ Learn how to create a **live cursor tracking app** using **Phoenix LiveView**!
       - [Installing TailwindCSS](#installing-tailwindcss)
     - [Setup watcher, minification and loading Tailwind](#setup-watcher-minification-and-loading-tailwind)
     - [1b. Running the Phoenix app](#1b-running-the-phoenix-app)
-  - [2. LiveView with cursors :small\_red\_triangle:](#2-liveview-with-cursors-small_red_triangle)
+  - [2. LiveView with cursors 🔺](#2-liveview-with-cursors-)
     - [2a. Tracking cursor movement](#2a-tracking-cursor-movement)
   - [3. Adding users :adult:](#3-adding-users-adult)
     - [3a. Adding usernames](#3a-adding-usernames)
     - [3b. Tracking who is online](#3b-tracking-who-is-online)
-  - [4. Customization :art:](#4-customization-art)
+  - [4. Customization 🎨](#4-customization-)
     - [4a. Different colors](#4a-different-colors)
   - [5. Adding authentication 🔐](#5-adding-authentication-)
     - [5a. Add a login button](#5a-add-a-login-button)
     - [5b. Add `auth_plug`](#5b-add-auth_plug)
     - [5c. Showing username](#5c-showing-username)
-- [Credits :memo:](#credits-memo)
+- [Credits 📝](#credits-)
 
 <br />
 
@@ -294,7 +294,7 @@ see the following in your browser.
 we now use TailwindCSS. We're going to make it
 pretty in the next few minutes!
 
-## 2. LiveView with cursors :small_red_triangle:	
+## 2. LiveView with cursors 🔺
 
 Let's start by adding a LiveView to our application. 
 Let's switch the current default route to a new 
@@ -730,10 +730,10 @@ moving in both tabs **in real-time**. Awesome stuff!
 <img width="1379" alt="multiple_users" src="https://user-images.githubusercontent.com/17494745/197518449-482a0286-f711-4890-93a4-deb0c9f7aabd.png">
 
 
-## 4. Customization :art:
+## 4. Customization 🎨
 
 Now that we got the main feature working, let's customize
-our page so it looks better! :art:
+our page so it looks better! 🎨
 
 Let's add a background to the page. 
 We used [heropatterns.com](https://heropatterns.com/)
@@ -1153,9 +1153,7 @@ like so!
 
 ![auth_demo](https://user-images.githubusercontent.com/17494745/203618159-0f9ec94f-44b2-4fc9-b5e8-a2c5eb097c53.gif)
 
-
-
-# Credits :memo:
+# Credits 📝
 
 This tutorial was inspired by 
 [Koen van Gilst's](https://koenvangilst.nl/blog/phoenix-liveview-cursors) 
