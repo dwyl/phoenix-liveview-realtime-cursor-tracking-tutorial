@@ -30,13 +30,17 @@ Learn how to create a **live cursor tracking app** using **Phoenix LiveView**!
       - [Installing TailwindCSS](#installing-tailwindcss)
     - [Setup watcher, minification and loading Tailwind](#setup-watcher-minification-and-loading-tailwind)
     - [1b. Running the Phoenix app](#1b-running-the-phoenix-app)
-  - [2. LiveView with cursors :small_red_triangle:](#2-liveview-with-cursors-small_red_triangle)
+  - [2. LiveView with cursors :small\_red\_triangle:](#2-liveview-with-cursors-small_red_triangle)
     - [2a. Tracking cursor movement](#2a-tracking-cursor-movement)
   - [3. Adding users :adult:](#3-adding-users-adult)
     - [3a. Adding usernames](#3a-adding-usernames)
     - [3b. Tracking who is online](#3b-tracking-who-is-online)
   - [4. Customization :art:](#4-customization-art)
     - [4a. Different colors](#4a-different-colors)
+  - [5. Adding authentication 🔐](#5-adding-authentication-)
+    - [5a. Add a login button](#5a-add-a-login-button)
+    - [5b. Add `auth_plug`](#5b-add-auth_plug)
+    - [5c. Showing username](#5c-showing-username)
 - [Credits :memo:](#credits-memo)
 
 <br />
@@ -941,7 +945,8 @@ Now, let's create the `AuthController`.
 This controller will be used to login 
 and logout the user in the app.
 
-Create a file `lib/chat_web/controllers/auth_controller.ex`
+Create a file 
+`lib/live_cursors_web/controllers/auth_controller.ex`
 and add the following.
 
 ```elixir
@@ -950,24 +955,11 @@ defmodule LiveCursorsWeb.AuthController do
   import Phoenix.LiveView, only: [assign_new: 3]
 
   def add_assigns(:default, _params, %{"jwt" => jwt} = _session, socket) do
-
-    claims = jwt
-    |> AuthPlug.Token.verify_jwt!()
-    |> AuthPlug.Helpers.strip_struct_metadata()
-    |> Useful.atomize_map_keys()
-
-    socket =
-      socket
-      |> assign_new(:person, fn -> claims end)
-      |> assign_new(:loggedin, fn -> true end)
-
-
-    {:cont, socket}
+    {:cont, AuthPlug.assign_jwt_to_socket(socket, &assign_new/3, jwt)}
   end
 
   def add_assigns(:default, _params, _session, socket) do
-    socket = assign_new(socket, :loggedin, fn -> false end)
-    {:cont, socket}
+    {:cont, assign_new(socket, :loggedin, fn -> false end)}
   end
 
   def login(conn, _params) do
