@@ -42,7 +42,7 @@ defmodule LiveCursorsWeb.AuthControllerTest do
     assert redirected_to(conn, 302) =~ "authdemo.fly.dev"
   end
 
-  test "test mount", %{conn: conn} do
+  test "test mount" do
     data = %{
       email: "test@dwyl.com",
       givenName: "Simon",
