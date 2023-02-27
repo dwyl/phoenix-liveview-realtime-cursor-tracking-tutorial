@@ -2,7 +2,7 @@
 
 # `Phoenix LiveView` Realtime Cursor Tracking Tutorial
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/Elixir%20CI?label=build&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/ci.yml?label=build&style=flat-square&branch=main)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/main.svg?style=flat-square)](https://codecov.io/github/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial?branch=main)
 [![Hex.pm](https://img.shields.io/hexpm/v/phoenix?color=brightgreen&style=flat-square)](https://hex.pm/packages/phoenix)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/phoenix-liveview-realtime-cursor-tracking-tutorial/issues)
