@@ -1,6 +1,6 @@
 defmodule LiveCursorsWeb.AuthController do
   use LiveCursorsWeb, :controller
-  import Phoenix.LiveView, only: [assign_new: 3]
+  import Phoenix.Component, only: [assign_new: 3]
 
   def add_assigns(:default, _params, %{"jwt" => jwt} = _session, socket) do
     {:cont, AuthPlug.assign_jwt_to_socket(socket, &assign_new/3, jwt)}
