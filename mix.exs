@@ -46,7 +46,7 @@ defmodule LiveCursors.MixProject do
       {:phoenix, "~> 1.7.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.18.3"},
+      {:phoenix_live_view, "~> 0.19.0"},
       {:phoenix_view, "~> 2.0"},
       {:tailwind, "~> 0.2.0", runtime: Mix.env() == :dev},
       {:floki, ">= 0.30.0", only: :test},
