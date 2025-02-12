@@ -7,9 +7,6 @@ config :live_cursors, LiveCursorsWeb.Endpoint,
   secret_key_base: "1b6uOJ4cnFDWYw6RJg86c9oI/zs95JNyp7imTwXS70Idcg8JPsTbc38B/Oy/nq8K",
   server: false
 
-# In test we don't send emails.
-config :live_cursors, LiveCursors.Mailer, adapter: Swoosh.Adapters.Test
-
 # Print only warnings and errors during test
 config :logger, level: :warning
 

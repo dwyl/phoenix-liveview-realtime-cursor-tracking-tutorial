@@ -52,7 +52,6 @@ defmodule LiveCursors.MixProject do
       {:tailwind, "~> 0.2.0", runtime: Mix.env() == :dev},
       {:floki, ">= 0.30.0", only: :test},
       {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
